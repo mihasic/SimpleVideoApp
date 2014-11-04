@@ -1,0 +1,12 @@
+﻿@model SimpleVideoApp.Models.VideoListViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <ul>
+        <li>@Html.ActionLink("Redirect example (postback)", "Post")</li>
+        <li>@Html.ActionLink("Example with hash (single page)", "Single")</li>
+    </ul>
+</div>

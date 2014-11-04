@@ -1,0 +1,48 @@
+﻿@model SimpleVideoApp.Models.VideoListViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    @foreach (var item in Model.Items)
+    {
+        <input type="radio" name="videoClipChoice" value="@item.Value" /> @(item.Text) <br />
+    }
+</div>
+
+<div>
+    <video id="videoContainer" controls="controls" style="display: none;">
+        Your browser does not support video tag.
+    </video>
+</div>
+
+
+<script>
+    /* This goes to separate file in non-example project. */
+    (function () {
+        function onHashChanged() {
+            var video = document.getElementById('videoContainer');
+            var h = window.location.hash;
+            if (h && h[0] == '#') { h = h.substring(1); }
+            if (h) {
+                video.src = '/Content/Video/' + h;
+                video.style.display = '';
+            } else {
+                video.style.display = 'none';
+                video.src = '';
+            }
+        }
+        function onVideoSelected() {
+            window.location.hash = this.value;
+        }
+
+
+        window.onhashchange = onHashChanged;
+
+        var elements = document.getElementsByName("videoClipChoice");
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].onclick = onVideoSelected;
+        }
+    })();
+</script>
